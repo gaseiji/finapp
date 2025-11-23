@@ -1,0 +1,13 @@
+# Binaries
+bin/
+*.exe
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# Go build files
+*.out
+*.test
