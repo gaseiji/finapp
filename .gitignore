@@ -11,3 +11,7 @@ bin/
 # Go build files
 *.out
 *.test
+
+# Environment files
+.env
+.envrc
