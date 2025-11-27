@@ -1,6 +1,5 @@
--- name: CreateUser :one
+-- name: CreateUser :exec
 INSERT INTO users (username, email, pass_hash)
-VALUES ($1, $2, $3)
-
+VALUES ($1, $2, $3);
 
 
