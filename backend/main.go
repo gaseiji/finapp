@@ -27,7 +27,7 @@ func main() {
 	defer pool.Close()
 
 	dbQueries := database.New(pool)
-	cfg := api.APIConfig{DB: dbQueries}
+	cfg := api.NewAPIConfig(dbQueries)
 
 	srv := &http.Server{
 		Addr:    ":8080",

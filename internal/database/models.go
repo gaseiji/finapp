@@ -5,23 +5,24 @@
 package database
 
 import (
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type Budget struct {
-	ID         pgtype.UUID
+	ID         uuid.UUID
 	Month      int32
 	Year       int32
-	CategoryID pgtype.UUID
+	CategoryID uuid.UUID
 	Amount     pgtype.Numeric
 	CreatedAt  pgtype.Timestamptz
-	CreatedBy  pgtype.UUID
+	CreatedBy  uuid.UUID
 	UpdatedAt  pgtype.Timestamptz
 	UpdatedBy  pgtype.UUID
 }
 
 type Category struct {
-	ID            pgtype.UUID
+	ID            uuid.UUID
 	CategoryName  string
 	CreatedAt     pgtype.Timestamptz
 	CreatedBy     pgtype.UUID
@@ -33,7 +34,7 @@ type Category struct {
 }
 
 type Installment struct {
-	ID                         pgtype.UUID
+	ID                         uuid.UUID
 	Description                string
 	Amount                     pgtype.Numeric
 	TotalNumberInstallments    int32
@@ -41,19 +42,19 @@ type Installment struct {
 	NextDueDate                pgtype.Date
 	CategoryID                 pgtype.UUID
 	CreatedAt                  pgtype.Timestamptz
-	CreatedBy                  pgtype.UUID
+	CreatedBy                  uuid.UUID
 	UpdatedAt                  pgtype.Timestamptz
 	UpdatedBy                  pgtype.UUID
 }
 
 type MonthlyRecurrency struct {
-	ID            pgtype.UUID
+	ID            uuid.UUID
 	Description   string
 	Amount        pgtype.Numeric
 	NextDueDate   pgtype.Date
 	CategoryID    pgtype.UUID
 	CreatedAt     pgtype.Timestamptz
-	CreatedBy     pgtype.UUID
+	CreatedBy     uuid.UUID
 	UpdatedAt     pgtype.Timestamptz
 	UpdatedBy     pgtype.UUID
 	Active        bool
@@ -61,14 +62,24 @@ type MonthlyRecurrency struct {
 	InactivatedBy pgtype.UUID
 }
 
+type PasswordResetToken struct {
+	ID        uuid.UUID
+	Token     string
+	ExpiresAt pgtype.Timestamptz
+	Used      bool
+	UsedAt    pgtype.Timestamptz
+	CreatedAt pgtype.Timestamptz
+	UserID    uuid.UUID
+}
+
 type PatternRule struct {
-	ID            pgtype.UUID
+	ID            uuid.UUID
 	Pattern       string
 	CategoryID    pgtype.UUID
 	Hits          int32
 	Misses        int32
 	CreatedAt     pgtype.Timestamptz
-	CreatedBy     pgtype.UUID
+	CreatedBy     uuid.UUID
 	UpdatedAt     pgtype.Timestamptz
 	UpdatedBy     pgtype.UUID
 	Active        bool
@@ -77,12 +88,12 @@ type PatternRule struct {
 }
 
 type PaymentMethod struct {
-	ID                pgtype.UUID
+	ID                uuid.UUID
 	PaymentMethodName string
-	UserPaymentMethod pgtype.UUID
-	OwnerUserID       pgtype.UUID
+	UserPaymentMethod uuid.UUID
+	OwnerUserID       uuid.UUID
 	CreatedAt         pgtype.Timestamptz
-	CreatedBy         pgtype.UUID
+	CreatedBy         uuid.UUID
 	UpdatedAt         pgtype.Timestamptz
 	UpdatedBy         pgtype.UUID
 	Active            bool
@@ -91,13 +102,13 @@ type PaymentMethod struct {
 }
 
 type Transaction struct {
-	ID                pgtype.UUID
+	ID                uuid.UUID
 	Description       string
 	Amount            pgtype.Numeric
-	UserPaymentMethod pgtype.UUID
+	UserPaymentMethod uuid.UUID
 	CategoryID        pgtype.UUID
 	CreatedAt         pgtype.Timestamptz
-	CreatedBy         pgtype.UUID
+	CreatedBy         uuid.UUID
 	UpdatedAt         pgtype.Timestamptz
 	UpdatedBy         pgtype.UUID
 	Active            bool
@@ -106,19 +117,25 @@ type Transaction struct {
 }
 
 type User struct {
-	ID                         pgtype.UUID
-	Username                   string
-	Email                      string
-	PassHash                   string
-	CreatedAt                  pgtype.Timestamptz
-	UpdatedAt                  pgtype.Timestamptz
-	LastLoginAt                pgtype.Timestamptz
-	PassExpirationDate         pgtype.Timestamptz
-	Active                     bool
-	InactivatedAt              pgtype.Timestamptz
-	EmailVerified              bool
-	VerificationToken          pgtype.Text
-	VerificationTokenExpiresAt pgtype.Timestamptz
-	PassResetToken             pgtype.Text
-	PassResetTokenExpiresAt    pgtype.Timestamptz
+	ID                 uuid.UUID
+	Username           string
+	Email              string
+	PassHash           string
+	PassExpirationDate pgtype.Timestamptz
+	EmailVerified      bool
+	Active             bool
+	InactivatedAt      pgtype.Timestamptz
+	CreatedAt          pgtype.Timestamptz
+	UpdatedAt          pgtype.Timestamptz
+	LastLoginAt        pgtype.Timestamptz
+}
+
+type VerificationToken struct {
+	ID        uuid.UUID
+	Token     string
+	ExpiresAt pgtype.Timestamptz
+	Used      bool
+	UsedAt    pgtype.Timestamptz
+	CreatedAt pgtype.Timestamptz
+	UserID    uuid.UUID
 }
